@@ -15,16 +15,6 @@ if not sys.platform.startswith("win"):
     pytest.skip("skipping windows-only tests", allow_module_level=True)
 
 
-def test_windows_single_glob_with_filter():
-    base_dir = pathlib.Path(tempfile.gettempdir())
-    y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
-    p1 = base_dir / r"Program*\WiX Toolset*\*\heat.exe"
-    y1.parent.mkdir(parents=True, exist_ok=True)
-    y1.touch()
-    lst = pathfromglob.abspathglob(str(p1), remove_re=[r"*Wix*"])
-    assert len(lst) == 0
-
-
 def test_windows_single_glob_string():
     base_dir = pathlib.Path(tempfile.gettempdir())
     y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
@@ -84,3 +74,13 @@ def test_windows_multiple_glob_strings():
     assert len(lst) == 1
     path = lst[0]
     assert path.exists()
+
+
+def test_windows_single_glob_with_filter():
+    base_dir = pathlib.Path(tempfile.gettempdir())
+    y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
+    p1 = base_dir / r"Program*\WiX Toolset*\*\heat.exe"
+    y1.parent.mkdir(parents=True, exist_ok=True)
+    y1.touch()
+    lst = pathfromglob.abspathglob(str(p1), remove_re=["*Wix*"])
+    assert len(lst) == 0
