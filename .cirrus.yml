@@ -56,36 +56,36 @@ env:
 
 # ---- Task definitions ----
 
-linux_mac_task:
-  # Use custom cloning since otherwise git tags are missing
-  clone_script: *clone
-  matrix:
-    - name: test (Linux - 3.6)
-      container: {image: "python:3.6-buster"}
-    - name: test (Linux - 3.7)
-      container: {image: "python:3.7-buster"}
-    - name: test (Linux - 3.8)
-      container: {image: "python:3.8-buster"}
-    - name: test (Linux - 3.9)
-      container: {image: "python:3.9-buster"}
-    - name: test (Linux - Anaconda)
-      container: {image: "continuumio/anaconda3:2021.05"}
-      extra_install_script:
-        - conda install -y -c conda-forge virtualenv build setuptools setuptools-scm pip tox
-    - name: test (OS X)
-      macos_instance: {image: "big-sur-xcode"}
-      env:
-        PYTHON_VERSION: 3.7
-        # ^  update when the default version of python in homebrew changes
-        PATH: "${HOME}/.local/bin:${HOME}/Library/Python/${PYTHON_VERSION}/bin:/usr/local/opt/python/libexec/bin:${PATH}"
-        # ^  add user and homebrew paths
-        PIP_CACHE: "${HOME}/Library/Caches/pip"
-      brew_cache:
-        folder: "$HOME/Library/Caches/Homebrew"
-      install_script:
-        - brew install python
-        - brew cleanup
-  <<: *REGULAR_TASK_TEMPLATE
+# linux_mac_task:
+#   # Use custom cloning since otherwise git tags are missing
+#   clone_script: *clone
+#   matrix:
+#     - name: test (Linux - 3.6)
+#       container: {image: "python:3.6-buster"}
+#     - name: test (Linux - 3.7)
+#       container: {image: "python:3.7-buster"}
+#     - name: test (Linux - 3.8)
+#       container: {image: "python:3.8-buster"}
+#     - name: test (Linux - 3.9)
+#       container: {image: "python:3.9-buster"}
+#     - name: test (Linux - Anaconda)
+#       container: {image: "continuumio/anaconda3:2021.05"}
+#       extra_install_script:
+#         - conda install -y -c conda-forge virtualenv build setuptools setuptools-scm pip tox
+#     - name: test (OS X)
+#       macos_instance: {image: "big-sur-xcode"}
+#       env:
+#         PYTHON_VERSION: 3.7
+#         # ^  update when the default version of python in homebrew changes
+#         PATH: "${HOME}/.local/bin:${HOME}/Library/Python/${PYTHON_VERSION}/bin:/usr/local/opt/python/libexec/bin:${PATH}"
+#         # ^  add user and homebrew paths
+#         PIP_CACHE: "${HOME}/Library/Caches/pip"
+#       brew_cache:
+#         folder: "$HOME/Library/Caches/Homebrew"
+#       install_script:
+#         - brew install python
+#         - brew cleanup
+#   <<: *REGULAR_TASK_TEMPLATE
 
 
 # If you find some problems with long paths on Windows,
