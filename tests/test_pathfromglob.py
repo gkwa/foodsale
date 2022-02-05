@@ -27,6 +27,7 @@ from foodsale import pathfromglob
 def test1():
     _str = r"C:\Program*\WiX Toolset*\bin\heat.exe"
     p1 = pathfromglob.PathFromGlob(_str)
+    print(p1.drive)
 
 
 def test():

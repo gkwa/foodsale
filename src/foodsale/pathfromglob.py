@@ -1,7 +1,6 @@
 import logging
 import os
 import pathlib
-from typing import List
 
 
 class NonRelativeGlob:
@@ -15,27 +14,18 @@ class NonRelativeGlob:
 
     def initialize(self, _str):
         try:
-            p1 = pathlib.PureWindowsPath(self._str)
-            logging.debug(type(p1))
-            logging.debug(p1)
-            logging.debug(f"{p1.drive=}")
-            logging.debug(f"{p1.root=}")
+            p1 = pathlib.Path(self._str)
             x = str(p1).lstrip(p1.drive)
-            logging.debug(x)
             x = str(x).lstrip(p1.root)
-            logging.debug(f"{x=}")
             root = pathlib.Path("/")
-            logging.debug(f"{root=}")
             z = f"*{x}"
-            logging.debug(f"{z=}")
             if self.drive:
                 os.chdir(p1.drive)
             y = pathlib.Path("/").glob(z)  # y is a generator
-            logging.debug(f"{y=}")
             paths = list(y)  # consumes the generator
-            logging.debug(f"{paths=}")
+            logging.debug(paths)
             if not paths:
-                logging.warning("couldn't find a match for {}".format(self._str))
+                logging.warning("couldn't find a match for {}".format(self.ps))
             else:
                 # naively choose one with higest version number
                 last = paths[-1]
@@ -66,26 +56,23 @@ class PathFromGlob:
     """
 
     def __init__(self, _str):
-        logging.debug(_str)
         self.root = None
         self.globs_str = _str
         self.path = None
         self.initialize(_str)
 
-    def multiline(self, _str) -> List[pathlib.Path]:
+    def initialize(self, _str):
         candidates = []
         for line in _str.splitlines():
-            clean = line.strip()
+            logging.debug("line:{}".format(line))
+            clean = self.clean(line)
+            logging.debug("path:{}".format(clean))
             if not clean:
                 continue
             nrg = NonRelativeGlob(clean)
             logging.debug(nrg.path)
             if nrg.path:
                 candidates.append(nrg.path)
-        return candidates
-
-    def initialize(self, _str):
-        candidates = self.multiline(_str)
 
         if candidates:
             self.path = candidates[-1]
@@ -94,12 +81,5 @@ class PathFromGlob:
     def from_string(cls, _str):
         return cls(_str)
 
-
-def main():
-    _str = r"C:\Program*\WiX Toolset*\bin\heat.exe"
-    p1 = PathFromGlob(_str)
-    print(p1)
-
-
-if __name__ == "__main__":
-    main()
+    def clean(self, line):
+        return line.strip()

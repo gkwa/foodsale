@@ -24,7 +24,7 @@ import argparse
 import logging
 import sys
 
-from foodsale import __version__, pathfromglob
+from foodsale import __version__
 
 __author__ = "Taylor Monacelli"
 __copyright__ = "Taylor Monacelli"
@@ -63,7 +63,6 @@ def fib(n):
 
 
 def parse_args(args):
-    
     """Parse command line parameters
 
     Args:
@@ -73,12 +72,13 @@ def parse_args(args):
     Returns:
       :obj:`argparse.Namespace`: command line parameters namespace
     """
-    parser = argparse.ArgumentParser(description="Pathglob")
+    parser = argparse.ArgumentParser(description="Just a Fibonacci demonstration")
     parser.add_argument(
         "--version",
         action="version",
         version="foodsale {ver}".format(ver=__version__),
     )
+    parser.add_argument(dest="n", help="n-th Fibonacci number", type=int, metavar="INT")
     parser.add_argument(
         "-v",
         "--verbose",
@@ -104,7 +104,7 @@ def setup_logging(loglevel):
     Args:
       loglevel (int): minimum loglevel for emitting messages
     """
-    logformat = "{%(filename)s:%(lineno)d} %(levelname)s - %(message)s"
+    logformat = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
     logging.basicConfig(
         level=loglevel, stream=sys.stdout, format=logformat, datefmt="%Y-%m-%d %H:%M:%S"
     )
@@ -122,9 +122,8 @@ def main(args):
     """
     args = parse_args(args)
     setup_logging(args.loglevel)
-    _str = r"C:\Program*\WiX Toolset*\bin\heat.exe"
-    p1 = pathfromglob.PathFromGlob(_str)
-    _logger.debug(p1)
+    _logger.debug("Starting crazy calculations...")
+    print("The {}-th Fibonacci number is {}".format(args.n, fib(args.n)))
     _logger.info("Script ends here")
 
 
