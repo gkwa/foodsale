@@ -13,7 +13,7 @@ __copyright__ = "Taylor Monacelli"
 __license__ = "MPL-2.0"
 
 
-if not sys.platform.startswith("win"):
+if sys.platform.startswith("win"):
     pytest.skip("only windows", allow_module_level=True)
 
 
