@@ -57,6 +57,7 @@ env:
 # ---- Task definitions ----
 
 linux_mac_task:
+  skip: 1
   # Use custom cloning since otherwise git tags are missing
   clone_script: *clone
   matrix:
