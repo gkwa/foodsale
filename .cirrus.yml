@@ -56,37 +56,36 @@ env:
 
 # ---- Task definitions ----
 
-linux_mac_task:
-  only_if: 1 == 0
-  # Use custom cloning since otherwise git tags are missing
-  clone_script: *clone
-  matrix:
-    - name: test (Linux - 3.6)
-      container: {image: "python:3.6-buster"}
-    - name: test (Linux - 3.7)
-      container: {image: "python:3.7-buster"}
-    - name: test (Linux - 3.8)
-      container: {image: "python:3.8-buster"}
-    - name: test (Linux - 3.9)
-      container: {image: "python:3.9-buster"}
-    - name: test (Linux - Anaconda)
-      container: {image: "continuumio/anaconda3:2021.05"}
-      extra_install_script:
-        - conda install -y -c conda-forge virtualenv build setuptools setuptools-scm pip tox
-    - name: test (OS X)
-      macos_instance: {image: "big-sur-xcode"}
-      env:
-        PYTHON_VERSION: 3.7
-        # ^  update when the default version of python in homebrew changes
-        PATH: "${HOME}/.local/bin:${HOME}/Library/Python/${PYTHON_VERSION}/bin:/usr/local/opt/python/libexec/bin:${PATH}"
-        # ^  add user and homebrew paths
-        PIP_CACHE: "${HOME}/Library/Caches/pip"
-      brew_cache:
-        folder: "$HOME/Library/Caches/Homebrew"
-      install_script:
-        - brew install python
-        - brew cleanup
-  <<: *REGULAR_TASK_TEMPLATE
+# linux_mac_task:
+#   # Use custom cloning since otherwise git tags are missing
+#   clone_script: *clone
+#   matrix:
+#     - name: test (Linux - 3.6)
+#       container: {image: "python:3.6-buster"}
+#     - name: test (Linux - 3.7)
+#       container: {image: "python:3.7-buster"}
+#     - name: test (Linux - 3.8)
+#       container: {image: "python:3.8-buster"}
+#     - name: test (Linux - 3.9)
+#       container: {image: "python:3.9-buster"}
+#     - name: test (Linux - Anaconda)
+#       container: {image: "continuumio/anaconda3:2021.05"}
+#       extra_install_script:
+#         - conda install -y -c conda-forge virtualenv build setuptools setuptools-scm pip tox
+#     - name: test (OS X)
+#       macos_instance: {image: "big-sur-xcode"}
+#       env:
+#         PYTHON_VERSION: 3.7
+#         # ^  update when the default version of python in homebrew changes
+#         PATH: "${HOME}/.local/bin:${HOME}/Library/Python/${PYTHON_VERSION}/bin:/usr/local/opt/python/libexec/bin:${PATH}"
+#         # ^  add user and homebrew paths
+#         PIP_CACHE: "${HOME}/Library/Caches/pip"
+#       brew_cache:
+#         folder: "$HOME/Library/Caches/Homebrew"
+#       install_script:
+#         - brew install python
+#         - brew cleanup
+#   <<: *REGULAR_TASK_TEMPLATE
 
 
 # If you find some problems with long paths on Windows,
@@ -152,32 +151,31 @@ windows_task:
   test_script: *test
 
 
-coverage_task:
-  only_if: 1 == 0
-  name: coverage (Linux - 3.6)
-  clone_script: *clone
-  container: {image: "python:3.6-buster"}
-  env:
-    COVERAGE: yes
-    PRE_COMMIT_HOME: ${HOME}/.cache/pre-commit
-  depends_on:
-    - test (Linux - 3.6)
-    - test (Linux - 3.7)
-    - test (Linux - 3.8)
-    - test (Linux - Anaconda)
-    - test (OS X)
-  pip_install_script:
-    pip install --user --upgrade coverage coveralls pre-commit
-  precommit_script:
-    - pre-commit install
-    - pre-commit run --all-files
-  <<: *REGULAR_TASK_TEMPLATE
-  coverage_script:
-    - coveralls
-  pre_commit_cache: &pre-commit-cache
-    folder: $PRE_COMMIT_HOME
-    fingerprint_script:
-      - echo $CIRRUS_OS
-      - python --version
-      - pre-commit --version
-      - cat .pre-commit-config.yaml
+# coverage_task:
+#   name: coverage (Linux - 3.6)
+#   clone_script: *clone
+#   container: {image: "python:3.6-buster"}
+#   env:
+#     COVERAGE: yes
+#     PRE_COMMIT_HOME: ${HOME}/.cache/pre-commit
+#   depends_on:
+#     - test (Linux - 3.6)
+#     - test (Linux - 3.7)
+#     - test (Linux - 3.8)
+#     - test (Linux - Anaconda)
+#     - test (OS X)
+#   pip_install_script:
+#     pip install --user --upgrade coverage coveralls pre-commit
+#   precommit_script:
+#     - pre-commit install
+#     - pre-commit run --all-files
+#   <<: *REGULAR_TASK_TEMPLATE
+#   coverage_script:
+#     - coveralls
+#   pre_commit_cache: &pre-commit-cache
+#     folder: $PRE_COMMIT_HOME
+#     fingerprint_script:
+#       - echo $CIRRUS_OS
+#       - python --version
+#       - pre-commit --version
+#       - cat .pre-commit-config.yaml
