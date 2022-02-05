@@ -40,4 +40,4 @@ def test_windows_multiple_glob_strings():
     y1.touch()
     candidates = [str(p1), str(p2)]
     lst = pathfromglob.abspathglobs(candidates)
-    assert len(lst) == 2
+    assert len(lst) == 1
