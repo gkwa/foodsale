@@ -11,10 +11,6 @@ __copyright__ = "Taylor Monacelli"
 __license__ = "MPL-2.0"
 
 
-if not sys.platform.startswith("win"):
-    pytest.skip("skipping windows-only tests", allow_module_level=True)
-
-
 def test_windows_single_glob_string():
     base_dir = pathlib.Path(tempfile.gettempdir())
     y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
