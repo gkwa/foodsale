@@ -40,6 +40,7 @@ def test_windows_single_glob_string_two():
     lst = pathfromglob.abspathglob(str(p1))
     assert len(lst) == 1
 
+
 def test_windows_multiple_glob_strings():
     base_dir = pathlib.Path(tempfile.gettempdir())
     y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
@@ -47,6 +48,5 @@ def test_windows_multiple_glob_strings():
     p2 = base_dir / r"Program*\WiX Toolset*\*\heat.exe"
     y1.parent.mkdir(parents=True, exist_ok=True)
     y1.touch()
-    candidates = [str(p1), str(p2)]
-    lst = pathfromglob.abspathglob(candidates)
+    lst = pathfromglob.abspathglob(str(p1), str(p2))
     assert len(lst) == 1

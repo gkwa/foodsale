@@ -4,8 +4,9 @@ from typing import List
 
 
 def abspathglob(*sglobs) -> List[pathlib.Path]:
-    paths = set()
     cwd = pathlib.Path.cwd()
+
+    paths = set()
     for _str in sglobs:
         p1 = pathlib.Path(_str)
         p2 = str(p1).lstrip(p1.anchor)
