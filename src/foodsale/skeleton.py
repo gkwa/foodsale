@@ -63,7 +63,7 @@ def fib(n):
 
 
 def parse_args(args):
-    
+
     """Parse command line parameters
 
     Args:
