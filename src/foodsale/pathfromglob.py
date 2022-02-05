@@ -1,10 +1,9 @@
 import os
 import pathlib
-from dataclasses import dataclass, field
 from typing import List
 
 
-def abspathglobs(globstrings):
+def abspathglobs(globstrings) -> List[pathlib.Path]:
     paths = []
     for _str in globstrings:
         paths.append(abspathglob(_str))
