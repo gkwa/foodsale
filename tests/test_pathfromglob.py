@@ -23,6 +23,8 @@ def test_windows_single_glob_string():
     y1.touch()
     lst = pathfromglob.abspathglob(str(p1))
     assert len(lst) == 1
+    path = lst[0]
+    assert path.exists()
 
 
 def test_windows_single_glob_string_two():
@@ -33,6 +35,8 @@ def test_windows_single_glob_string_two():
     y1.touch()
     lst = pathfromglob.abspathglob(str(p1))
     assert len(lst) == 1
+    path = lst[0]
+    assert path.exists()
 
 
 def test_windows_single_glob_string_two():
@@ -43,6 +47,8 @@ def test_windows_single_glob_string_two():
     y1.touch()
     lst = pathfromglob.abspathglob(str(p1))
     assert len(lst) == 1
+    path = lst[0]
+    assert path.exists()
 
 
 def test_windows_multiple_glob_strings():
@@ -54,3 +60,5 @@ def test_windows_multiple_glob_strings():
     y1.touch()
     lst = pathfromglob.abspathglob(str(p1), str(p2))
     assert len(lst) == 1
+    path = lst[0]
+    assert path.exists()
