@@ -4,10 +4,10 @@ from typing import List
 
 
 def abspathglobs(globstrings) -> List[pathlib.Path]:
-    paths = []
+    paths = set()
     for _str in globstrings:
-        paths.append(abspathglob(_str))
-    return paths
+        paths.add(abspathglob(_str))
+    return list(paths)
 
 
 def abspathglob(_str) -> List[pathlib.Path]:
