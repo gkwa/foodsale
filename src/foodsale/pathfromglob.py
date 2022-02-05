@@ -4,7 +4,7 @@ import re
 from typing import List
 
 
-def abspathglob(*globs: List[str], remove_re: List[str]) -> List[pathlib.Path]:
+def abspathglob(*globs: List[str], remove_re: List[str] = None) -> List[pathlib.Path]:
     paths = set()
 
     for _str in globs:
