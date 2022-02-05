@@ -6,7 +6,8 @@ from typing import List
 def abspathglobs(globstrings) -> List[pathlib.Path]:
     paths = set()
     for _str in globstrings:
-        paths.add(abspathglob(_str))
+        for path in abspathglob(_str):
+            paths.add(path)
     return list(paths)
 
 
