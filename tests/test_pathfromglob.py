@@ -1,4 +1,3 @@
-import logging
 import pathlib
 import sys
 import tempfile
@@ -25,8 +24,8 @@ or this:
 def test_windows():
     base_dir = pathlib.Path(tempfile.gettempdir())
     y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
+    p1 = base_dir / r"Program*\WiX Toolset*\*\heat.exe"
     y1.parent.mkdir(parents=True, exist_ok=True)
     y1.touch()
-    glob = pathfromglob.abspathglob(str(y1))
-    result = list(glob)
-    assert len(result) == 1
+    lst = pathfromglob.abspathglob(str(p1))
+    assert len(lst) == 1

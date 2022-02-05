@@ -16,10 +16,11 @@ def abspathglob(_str) -> List[pathlib.Path]:
     cwd = pathlib.Path.cwd()
     try:
         os.chdir(p1.anchor)
-        p3 = pathlib.Path(p1.anchor).glob(p2)
+        g = pathlib.Path(p1.anchor).glob(p2)
+        lst = list(g)
     finally:
         os.chdir(cwd)
-    return p3
+    return lst
 
 
 def main():
