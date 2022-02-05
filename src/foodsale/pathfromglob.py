@@ -13,10 +13,11 @@ def abspathglob(*sglobs) -> List[pathlib.Path]:
         try:
             os.chdir(p1.anchor)
             g = pathlib.Path(p1.anchor).glob(p2)
-            for path in list(g):
-                paths.add(path)
         finally:
             os.chdir(cwd)
+
+        for path in list(g):
+            paths.add(path)
 
     return list(paths)
 
