@@ -8,6 +8,7 @@ def abspathglobs(globstrings):
     paths = []
     for _str in globstrings:
         paths.append(abspathglob(_str))
+    return paths
 
 
 def abspathglob(_str) -> List[pathlib.Path]:
