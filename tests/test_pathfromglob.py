@@ -6,6 +6,12 @@ import tempfile
 import pytest
 
 from foodsale import pathfromglob
+from foodsale.skeleton import fib, main
+
+__author__ = "Taylor Monacelli"
+__copyright__ = "Taylor Monacelli"
+__license__ = "MPL-2.0"
+
 
 if not sys.platform.startswith("win"):
     pytest.skip("only windows", allow_module_level=True)
