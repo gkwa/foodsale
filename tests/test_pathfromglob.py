@@ -21,7 +21,7 @@ or this:
 """
 
 
-def test_windows():
+def test_windows_single_glob_string():
     base_dir = pathlib.Path(tempfile.gettempdir())
     y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
     p1 = base_dir / r"Program*\WiX Toolset*\*\heat.exe"
@@ -31,7 +31,7 @@ def test_windows():
     assert len(lst) == 1
 
 
-def test_windows_two():
+def test_windows_multiple_glob_strings():
     base_dir = pathlib.Path(tempfile.gettempdir())
     y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
     p1 = base_dir / r"Program*\WiX Toolset*\bin\heat.exe"
