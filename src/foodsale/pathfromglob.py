@@ -1,9 +1,10 @@
 import os
 import pathlib
+import re
 from typing import List
 
 
-def abspathglob(*sglobs) -> List[pathlib.Path]:
+def abspathglob(*sglobs, remove_re: List[str]) -> List[pathlib.Path]:
     paths = set()
 
     for _str in sglobs:
@@ -18,6 +19,12 @@ def abspathglob(*sglobs) -> List[pathlib.Path]:
 
         for path in list(glob):
             paths.add(path)
+
+    if remove_re:
+        for path in paths:
+            for regex in remove_re:
+                if re.search(regex, str(path)):
+                    paths.remove(path)
 
     return list(paths)
 
