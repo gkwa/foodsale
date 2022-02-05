@@ -13,8 +13,8 @@ __copyright__ = "Taylor Monacelli"
 __license__ = "MPL-2.0"
 
 
-# if not sys.platform.startswith("win"):
-#     pytest.skip("skipping windows-only tests", allow_module_level=True)
+if not sys.platform.startswith("win"):
+    pytest.skip("skipping windows-only tests", allow_module_level=True)
 
 
 """
@@ -23,7 +23,7 @@ or this:
 """
 
 
-def windows_test1():
+def test_windows():
     base_dir = pathlib.Path(tempfile.gettempdir())
     y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
     y1.parent.mkdir(parents=True, exist_ok=True)
