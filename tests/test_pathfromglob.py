@@ -39,5 +39,5 @@ def test_windows_multiple_glob_strings():
     y1.parent.mkdir(parents=True, exist_ok=True)
     y1.touch()
     candidates = [str(p1), str(p2)]
-    lst = pathfromglob.abspathglobs(candidates)
+    lst = pathfromglob.abspathglob(candidates)
     assert len(lst) == 1

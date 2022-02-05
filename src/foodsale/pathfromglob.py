@@ -3,25 +3,20 @@ import pathlib
 from typing import List
 
 
-def abspathglobs(globstrings) -> List[pathlib.Path]:
+def abspathglob(*sglobs) -> List[pathlib.Path]:
     paths = set()
-    for _str in globstrings:
-        for path in abspathglob(_str):
-            paths.add(path)
-    return list(paths)
-
-
-def abspathglob(_str) -> List[pathlib.Path]:
-    p1 = pathlib.Path(_str)
-    p2 = str(p1).lstrip(p1.anchor)
-    cwd = pathlib.Path.cwd()
-    try:
-        os.chdir(p1.anchor)
-        g = pathlib.Path(p1.anchor).glob(p2)
-        lst = list(g)
-    finally:
-        os.chdir(cwd)
-    return lst
+    for _str in sglobs:
+        p1 = pathlib.Path(_str)
+        p2 = str(p1).lstrip(p1.anchor)
+        cwd = pathlib.Path.cwd()
+        try:
+            os.chdir(p1.anchor)
+            g = pathlib.Path(p1.anchor).glob(p2)
+            for path in list(g):
+                paths.add(path)
+        finally:
+            os.chdir(cwd)
+        return list(paths)
 
 
 def main():
