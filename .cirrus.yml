@@ -146,6 +146,8 @@ windows_task:
     - ps: (rm -Recurse -Force -ErrorAction SilentlyContinue .tox,junit-*.xml)
   build_script: *build
   test_script: *test
+
+
 # coverage_task:
 #   name: coverage (Linux - 3.6)
 #   clone_script: *clone
