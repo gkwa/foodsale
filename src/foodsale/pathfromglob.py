@@ -4,10 +4,10 @@ import re
 from typing import List
 
 
-def abspathglob(*sglobs, remove_re: List[str]) -> List[pathlib.Path]:
+def abspathglob(*globs: List[str], remove_re: List[str]) -> List[pathlib.Path]:
     paths = set()
 
-    for _str in sglobs:
+    for _str in globs:
         absolute = pathlib.Path(_str)
         relative = str(absolute).lstrip(absolute.anchor)
         cwd = pathlib.Path.cwd()
