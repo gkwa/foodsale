@@ -8,15 +8,15 @@ def abspathglob(*sglobs) -> List[pathlib.Path]:
 
     paths = set()
     for _str in sglobs:
-        p1 = pathlib.Path(_str)
-        p2 = str(p1).lstrip(p1.anchor)
+        absolute = pathlib.Path(_str)
+        relative = str(absolute).lstrip(absolute.anchor)
         try:
-            os.chdir(p1.anchor)
-            g = pathlib.Path(p1.anchor).glob(p2)
+            os.chdir(absolute.anchor)
+            glob = pathlib.Path(absolute.anchor).glob(relative)
         finally:
             os.chdir(cwd)
 
-        for path in list(g):
+        for path in list(glob):
             paths.add(path)
 
     return list(paths)
