@@ -54,14 +54,9 @@ def test_windows_single_glob_string_threeb():
     y1.parent.mkdir(parents=True, exist_ok=True)
     y1.touch()
     lst = pathfromglob.abspathglob(str(p1))
-    print("y1", y1)
-    print("p1", p1)
-
-
     assert len(lst) == 1
     path = lst[0]
     assert path.exists()
-
 
 
 def test_windows_single_glob_string_three():
