@@ -4,7 +4,7 @@ import re
 from typing import List
 
 
-def abspathglob(*globs: List[str], remove_re: List[str] = None) -> List[pathlib.Path]:
+def abspathglob(*globs: List[str], excludes: List[str] = None) -> List[pathlib.Path]:
     paths = set()
 
     for _str in globs:
@@ -17,12 +17,11 @@ def abspathglob(*globs: List[str], remove_re: List[str] = None) -> List[pathlib.
         finally:
             os.chdir(cwd)
 
-        for path in list(glob):
-            paths.add(path)
+        paths = {path for path in glob}
 
-    if remove_re:
+    if excludes:
         for path in paths.copy():
-            for regex in remove_re:
+            for regex in excludes:
                 if re.search(regex, str(path), re.IGNORECASE):
                     paths.remove(path)
 

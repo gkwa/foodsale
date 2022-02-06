@@ -95,5 +95,5 @@ def test_windows_single_glob_with_filter():
     p1 = base_dir / r"Program*\WiX Toolset*\*\heat.exe"
     y1.parent.mkdir(parents=True, exist_ok=True)
     y1.touch()
-    lst = pathfromglob.abspathglob(str(p1), remove_re=[".*Wix.*"])
+    lst = pathfromglob.abspathglob(str(p1), excludes=[".*Wix.*"])
     assert len(lst) == 0
