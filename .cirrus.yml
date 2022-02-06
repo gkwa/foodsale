@@ -60,7 +60,7 @@ linux_mac_task:
   # skip: yes
   # Use custom cloning since otherwise git tags are missing
   clone_script: *clone
-  only_if: "a" =~ "b"
+  only_if: "$x != ''"
 
   matrix:
     - name: test (Linux - 3.6)
