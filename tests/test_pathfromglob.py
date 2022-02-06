@@ -47,6 +47,23 @@ def test_windows_single_glob_string_two():
     assert path.exists()
 
 
+def test_windows_single_glob_string_threeb():
+    base_dir = pathlib.Path(tempfile.gettempdir())
+    y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
+    p1 = base_dir / r"**\heat.exe"
+    y1.parent.mkdir(parents=True, exist_ok=True)
+    y1.touch()
+    lst = pathfromglob.abspathglob(str(p1))
+    print("y1", y1)
+    print("p1", p1)
+
+
+    assert len(lst) == 1
+    path = lst[0]
+    assert path.exists()
+
+
+
 def test_windows_single_glob_string_three():
     base_dir = pathlib.Path(tempfile.gettempdir())
     y1 = base_dir / r"Program Files\WiX Toolset 3.11\bin\heat.exe"
