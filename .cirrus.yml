@@ -54,7 +54,7 @@ env:
 # ---- Task definitions ----
 
 linux_mac_task:
-  only_if: "a" == "b"
+  only_if: "a" =~ "b"
   # only_if: "yes"
   # only_if: "0"
   # only_if: 1 == 0
