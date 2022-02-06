@@ -23,7 +23,7 @@ def abspathglob(*globs: List[str], remove_re: List[str] = None) -> List[pathlib.
     if remove_re:
         for path in paths:
             for regex in remove_re:
-                if re.search(regex, str(path)):
+                if re.search(regex, str(path), re.IGNORECASE):
                     paths.remove(path)
 
     return list(paths)
