@@ -54,7 +54,7 @@ env:
 # ---- Task definitions ----
 
 linux_mac_task:
-  only_if: "x == 1"
+  only_if: "1 == 0"
   # Use custom cloning since otherwise git tags are missing
   clone_script: *clone
 
