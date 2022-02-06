@@ -54,13 +54,13 @@ env:
 # ---- Task definitions ----
 
 linux_mac_task:
-  only_if: "a" =~ "b"
   # only_if: "yes"
   # only_if: "0"
   # only_if: 1 == 0
   # skip: yes
   # Use custom cloning since otherwise git tags are missing
   clone_script: *clone
+  only_if: "a" =~ "b"
 
   matrix:
     - name: test (Linux - 3.6)
